@@ -1,0 +1,33 @@
+#include<stdio.h>
+struct yidong
+{
+  int num;
+  struct yidong *next;
+};
+int main()
+{
+  int a,b[200],c;
+  scanf("%d",&a);
+  struct yidong p[a];
+  for(int i=0;i<a;i++)
+  {
+    scanf("%d",&p[i].num);
+    if(i==a-1)
+    p[i].next=&p[0];
+    else
+    p[i].next=&p[i+1];
+  }
+  scanf("%d",&c);
+  struct yidong *head,*pp;
+  head=&p[0];
+  p[a].next=head;
+  head=p[a-c-1].next;
+  p[a-c-1].next=NULL;
+  pp=head;
+  while(pp!=NULL)
+  {
+    printf("%d ",pp->num);
+    pp=pp->next;
+  }
+  return 0;
+}
