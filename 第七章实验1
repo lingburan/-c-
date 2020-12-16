@@ -1,0 +1,74 @@
+//bug一堆
+//无fuck可说
+#include<stdio.h>
+#include<malloc.h>
+#define maxsize 100
+typedef char elemtype;
+typedef struct node
+{
+	elemtype data;
+	struct node *lchild;
+	struct node *rchild;
+ } btnode;
+void createbtree (btnode*&b,char*str)
+{
+	btnode*st[maxsize],*p;
+	int top=-1,k,j=0;
+	char ch;
+	b=NULL;
+	ch=str[j];
+	while(ch!='\0')
+	{
+		switch(ch)
+		{
+			case '(':top++;st[top]=p;k=1;break;
+			case')':top--;break;
+			case',':k=2;break;
+			default:p=(btnode*)malloc(sizeof(btnode));
+			        p->data=ch;
+		             p->lcild=p->rchild=NULL;
+		          	if(b==NULL)
+			           b=p;
+			        else
+			        {
+				     switch(k)
+				       {
+				       	case 1:st[top]->lchild=p;
+				      	break;
+				       	case 2:st[top]->rchild=p;
+				       	break;
+				        }
+			           }
+		}
+		j++;
+		ch=str[j];
+	}
+	
+}
+void destorybtree(btnode *&b)
+{
+	if(b!=NULL)
+	{
+		destorybtree(b->lchild);
+		destorybtree(b->rchild);
+		free(b);
+	}
+}
+btnode *findnode(btnode*b,elemtype x)
+{
+	btnode *p;
+	if(b==NUll)
+	    return NULL;
+	else if(b->data==x)
+	    return b;
+	else
+	    return findnode(b->rchild,x);
+}
+int main()
+{
+	btnode *b,*p,*lp,*rp;
+	printf("二叉树的基本运算如下:\n");
+	printf(" (1)创建二叉树\n)");
+	cteatbtree(b,"A(B(D,E(H(J,K(L,M(,N))))),C(F,G(,I)))");
+	
+}
