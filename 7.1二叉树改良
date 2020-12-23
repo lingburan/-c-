@@ -1,0 +1,152 @@
+//7.1
+//bug一堆
+//无fuck可说
+//但是还有问题
+#include<stdio.h>
+#include<malloc.h>
+#define maxsize 100
+typedef char elemtype;
+typedef struct node
+{
+	elemtype data;
+	struct node *lchild;
+	struct node *rchild;
+ } btnode;
+void createbtree (btnode*&b,char*str)
+{
+	btnode*st[maxsize],*p;
+	int top=-1,k,j=0;
+	char ch;
+	b=NULL;
+	ch=str[j];
+	while(ch!='\0')
+	{
+		switch(ch)
+		{
+			case '(':top++;st[top]=p;k=1;break;
+			case')':top--;break;
+			case',':k=2;break;
+			default:p=(btnode*)malloc(sizeof(btnode));
+			        p->data=ch;
+		             p->lchild=p->rchild=NULL;
+		          	if(b==NULL)
+			           b=p;
+			        else
+			        {
+				     switch(k)
+				       {
+				       	case 1:st[top]->lchild=p;
+				      	break;
+				       	case 2:st[top]->rchild=p;
+				       	break;
+				        }
+			           }
+		}
+		j++;
+		ch=str[j];
+	}
+	
+}
+void destorybtree(btnode *&b)
+{
+	if(b!=NULL)
+	{
+		destorybtree(b->lchild);
+		destorybtree(b->rchild);
+		free(b);
+	}
+}
+btnode *findnode(btnode*b,elemtype x)
+{
+	btnode *p;
+	if(b==NULL)
+	    return NULL;
+	else if(b->data==x)
+	    return b;
+	else
+	    return findnode(b->rchild,x);
+}
+btnode *lchildnode(btnode *p)
+{
+	/*btnode *p;
+	if(b==NULL)
+		return NULL;
+	else if(b->data==x)
+		return b;
+	else
+	{
+		p=findnode(b->lchild,x)\
+		if(p!=NULL)
+			return p;
+		else
+		{
+			p=findnode(b->lchild,x)
+			if(p!=NULL)
+			{
+				return p;
+			}
+			else
+				return findnode(b->rchild,x);
+		}
+	}*/
+	return p->lchild;
+}
+btnode *rchildnode(btnode *p)
+{
+	return p->rchild;
+}
+
+void dispbtree(btnode *b)
+{
+	if(b!=NULL)
+	{
+		printf("%c",b->data);
+		if(b->lchild!=NULL||b->rchild!=NULL)
+		{
+			printf("(");
+			dispbtree(b->lchild);
+			if(b->rchild!=NULL)
+				printf(",");
+			dispbtree(b->rchild);
+			printf(")");
+		}
+	}
+		
+
+}
+int btheight(btnode*b)
+{
+	int lchlidh,rchildh;
+	if(b==NULL)
+}
+int main()
+{
+	btnode *b,*p,*lp,*rp;
+	printf("二叉树的基本运算如下:\n");
+	printf(" (1)创建二叉树\n");
+	printf(" (2)输出二叉树");
+	createbtree(b,"A(B(D,E(H(J,K(L,M(,N))))),C(F,G(,I)))");
+	dispbtree(b);
+	printf("\n");
+	printf("(3)H节点");
+    p=findnode(b,'H');
+	printf("\n");
+	if(p!=NULL)
+	{
+		lp=lchildnode(p);
+		if(lp!=NULL)
+			printf("左孩子为%c",lp->data);
+		else
+			printf("无左孩子");
+		rp=rchlidnode(p);
+		if(rp!=NULL)
+		printf("右孩子为%c",rp->data);
+		else
+		printf("无右孩子");
+	}
+	printf("\n");
+	printf(" (4)二叉树b的高度:%d\n",btheight(b));
+	printf(" (5)释放二叉树b\n");
+	destroybtree(b);
+	return 1;
+}
